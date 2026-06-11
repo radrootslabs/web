@@ -8,6 +8,11 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => {
 	const web_repo_root = path.resolve(__dirname, "..");
+	const monorepo_root = path.resolve(web_repo_root, "../../../..");
+	const replica_db_wasm_pkg_root = path.resolve(
+		monorepo_root,
+		"domains/radroots/lib/crates/replica_db_wasm/pkg"
+	);
 	const web_app_env_file = process.env.RADROOTS_WEB_APP_ENV_FILE;
 	if (!web_app_env_file) throw new Error("Missing env var: RADROOTS_WEB_APP_ENV_FILE");
 	dotenv_config({ path: path.resolve(web_app_env_file), override: true });
@@ -68,8 +73,8 @@ export default defineConfig(({ mode }) => {
 			fs: {
 				allow: [
 					path.resolve(__dirname, ".."),
-					path.resolve(__dirname, "../..")
-
+					path.resolve(__dirname, "../.."),
+					replica_db_wasm_pkg_root
 				]
 			}
 		}
