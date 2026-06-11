@@ -16,6 +16,9 @@ export type AppImportStateResult = {
     message?: string;
 }
 
+const is_record = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
 const assert_config_match = (
     current: IdbClientConfig,
     incoming: IdbClientConfig,
@@ -40,8 +43,8 @@ export const validate_import_file = async (file: File | null): Promise<Importabl
     return await validate_import_state(parsed_res.value);
 };
 
-export const validate_import_state = async (state: any): Promise<ImportableAppState> => {
-    if (!state || typeof state !== "object") throw_err(ls_val(`error.configuration.import.empty_file`));
+export const validate_import_state = async (state: unknown): Promise<ImportableAppState> => {
+    if (!is_record(state)) throw_err(ls_val(`error.configuration.import.empty_file`));
     if (state.backup_version !== app_cfg.backup.version) {
         throw_err(
             ls_val(`error.configuration.import.unsupported_backup_version`, {
@@ -50,26 +53,31 @@ export const validate_import_state = async (state: any): Promise<ImportableAppSt
             })
         );
     }
-    const backup_format = state?.versions?.backup_format ?? state?.versions?.dump_format;
-    if (!state.versions || !state.versions.app || !state.versions.tangle_db || !backup_format) {
+    const versions = state.versions;
+    if (!is_record(versions)) {
         throw_err(ls_val(`error.configuration.import.missing_version_metadata`));
     }
-    const database = state.database ?? state.tangle_db;
-    const backup = database?.backup ?? database?.dump;
-    if (!state.datastore || !state.nostr_keystore || !database) {
+    const backup_format = versions.backup_format;
+    const replica_db_version = versions.replica_db;
+    if (typeof versions.app !== "string" || typeof replica_db_version !== "string" || typeof backup_format !== "string") {
+        throw_err(ls_val(`error.configuration.import.missing_version_metadata`));
+    }
+    const database = state.database;
+    if (!state.datastore || !state.nostr_keystore || !is_record(database)) {
         throw_err(ls_val(`error.configuration.import.missing_required_sections`));
     }
-    if (!backup || backup.format_version !== backup_format) {
+    const backup = database.backup;
+    if (!is_record(backup) || backup.format_version !== backup_format) {
         throw_err(ls_val(`error.configuration.import.database_format_mismatch`));
     }
-    if (backup.tangle_db_version !== state.versions.tangle_db) {
-        throw_err(ls_val(`error.configuration.import.tangle_db_version_mismatch`));
+    if (backup.replica_db_version !== replica_db_version) {
+        throw_err(ls_val(`error.configuration.import.replica_db_version_mismatch`));
     }
     return {
         ...state,
-        versions: { ...state.versions, backup_format },
+        versions: { ...versions, backup_format },
         database: { ...database, backup }
-    };
+    } as ImportableAppState;
 };
 
 
@@ -98,11 +106,11 @@ const restore_nostr_keystore_state = async (
     }
 };
 
-const restore_tangle_db_state = async (state: ImportableAppState["database"]): Promise<void> => {
+const restore_replica_db_state = async (state: ImportableAppState["database"]): Promise<void> => {
     const current_store_key = db.get_store_key();
     if (current_store_key !== state.store_key) {
         throw_err(
-            ls_val(`error.configuration.import.tangle_store_key_mismatch`, {
+            ls_val(`error.configuration.import.replica_store_key_mismatch`, {
                 app_store_key: current_store_key,
                 backup_store_key: state.store_key,
             })
@@ -121,7 +129,7 @@ export const import_app_state = async (payload: ImportableAppState): Promise<App
         assert_config_match(nostr_keys.get_config(), import_state.nostr_keystore.config, ls_val(`common.nostr_keystore`));
         const current_store_key = db.get_store_key();
         if (current_store_key !== import_state.database.store_key) {
-            const message = ls_val(`error.configuration.import.tangle_store_key_mismatch`, {
+            const message = ls_val(`error.configuration.import.replica_store_key_mismatch`, {
                 app_store_key: current_store_key,
                 backup_store_key: import_state.database.store_key,
             });
@@ -130,7 +138,7 @@ export const import_app_state = async (payload: ImportableAppState): Promise<App
         }
         await restore_datastore_state(import_state.datastore);
         await restore_nostr_keystore_state(import_state.nostr_keystore);
-        await restore_tangle_db_state(import_state.database);
+        await restore_replica_db_state(import_state.database);
 
         return { pass: true }
     } catch (e) {

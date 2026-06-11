@@ -52,7 +52,7 @@ const export_nostr_keystore_state = async (): Promise<ExportedAppState["nostr_ke
     };
 };
 
-const export_tangle_db_state = async (): Promise<ExportedAppState["database"]> => {
+const export_replica_db_state = async (): Promise<ExportedAppState["database"]> => {
     await app_init();
     const store_key = db.get_store_key();
     const backup = await db.export_json();
@@ -66,23 +66,23 @@ export const export_app_state = async (): Promise<void> => {
         const [
             datastore_state,
             nostr_keystore_state,
-            tangle_db_state
+            replica_db_state
         ] = await Promise.all([
             export_datastore_state(),
             export_nostr_keystore_state(),
-            export_tangle_db_state()
+            export_replica_db_state()
         ]);
         const payload: ExportedAppState = {
             backup_version: app_cfg.backup.version,
             exported_at: new Date().toISOString(),
             versions: {
                 app: app_cfg.version,
-                tangle_db: tangle_db_state.backup.tangle_db_version,
-                backup_format: tangle_db_state.backup.format_version
+                replica_db: replica_db_state.backup.replica_db_version,
+                backup_format: replica_db_state.backup.format_version
             },
             datastore: datastore_state,
             nostr_keystore: nostr_keystore_state,
-            database: tangle_db_state
+            database: replica_db_state
         };
         const ts = payload.exported_at.replace(/[:.]/g, "-");
         const filename_prefix = ls_val(`common.radroots_studio_app_state_filename_prefix`);

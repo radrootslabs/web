@@ -42,7 +42,7 @@
 		"@radroots/locales": "workspace:*",
 		"@radroots/nfc": "workspace:*",
 		"@radroots/nostr": "workspace:*",
-		"@radroots/tangle-db-schema-bindings": "workspace:*",
+		"@radroots/replica-db-schema-bindings": "workspace:*",
 		"@radroots/themes": "workspace:*",
 		"@radroots/types-bindings": "workspace:*",
 		"@radroots/utils": "workspace:*",

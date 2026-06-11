@@ -1,5 +1,5 @@
 import { handle_err, } from "@radroots/apps-lib";
-import type { IGcsLocationFields } from "@radroots/tangle-db-schema-bindings";
+import type { IGcsLocationFields } from "@radroots/replica-db-schema-bindings";
 import type { IError } from "@radroots/types-bindings";
 import {
     geojson_point_from_geopoint,

@@ -11,7 +11,7 @@ import { IDB_CONFIG_DATASTORE, IDB_CONFIG_KEYSTORE_NOSTR, RADROOTS_IDB_DATABASE,
 import { WebKeystoreNostr } from "@radroots/client/keystore";
 import { WebNotifications } from "@radroots/client/notifications";
 import { WebClientRadroots } from "@radroots/client/radroots";
-import { WebTangleDatabase } from "@radroots/client/tangle";
+import { WebReplicaDatabase } from "@radroots/client/replica";
 import { Geocoder } from "@radroots/geocoder";
 import { WebHttp } from "@radroots/http";
 import { asset_cache_fetch, type CallbackPromise } from "@radroots/utils";
@@ -51,12 +51,12 @@ export const notif = new WebNotifications();
 export const radroots = new WebClientRadroots(RADROOTS_API);
 export const nostr_keys = new WebKeystoreNostr(IDB_CONFIG_KEYSTORE_NOSTR);
 
-export const db = new WebTangleDatabase({
+export const db = new WebReplicaDatabase({
     cipher_config: cfg_data.sql_cipher,
     sql_wasm_path: SQL_WASM_URL,
 });
 
-let db_i: Promise<WebTangleDatabase> | null = null;
+let db_i: Promise<WebReplicaDatabase> | null = null;
 let db_init_promise: Promise<void> | null = null;
 let geoc_init_promise: Promise<void> | null = null;
 let app_init_promise: Promise<void> | null = null;
@@ -213,9 +213,9 @@ export const app_init = async (): Promise<void> => {
     }
 };
 
-export const create_db = async (): Promise<WebTangleDatabase> => {
+export const create_db = async (): Promise<WebReplicaDatabase> => {
     if (!db_i) {
-        const db_client = new WebTangleDatabase({
+        const db_client = new WebReplicaDatabase({
             sql_wasm_path: SQL_WASM_URL
         });
         db_i = (async () => {

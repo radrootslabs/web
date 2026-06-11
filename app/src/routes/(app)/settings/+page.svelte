@@ -14,9 +14,9 @@
     import { Settings } from "@radroots/apps-lib-pwa";
     import type {
         NostrEventEnvelope,
-        TangleDatabaseExportSigner,
-        TangleNostrSyncSigner
-    } from "@radroots/client/tangle";
+        ReplicaDatabaseExportSigner,
+        ReplicaNostrSyncSigner
+    } from "@radroots/client/replica";
     import { nostr_event_sign } from "@radroots/nostr";
 
     const ls_val = get_store(ls);
@@ -25,10 +25,10 @@
         app_init_reset();
     };
 
-    const load_sync_signers = async (): Promise<TangleNostrSyncSigner[]> => {
+    const load_sync_signers = async (): Promise<ReplicaNostrSyncSigner[]> => {
         const keys_res = await nostr_keys.keys();
         if ("err" in keys_res) throw new Error(keys_res.err);
-        const signers: TangleNostrSyncSigner[] = [];
+        const signers: ReplicaNostrSyncSigner[] = [];
         for (const public_key of keys_res.results) {
             const secret_res = await nostr_keys.read(public_key);
             if ("err" in secret_res) throw new Error(secret_res.err);
@@ -83,7 +83,7 @@
             console.log(JSON.stringify(app_data, null, 4), `app_data`);
             if ("err" in app_data) throw new Error(app_data.err);
             await sync_nostr_events(app_data.result.active_key);
-            let signer: TangleDatabaseExportSigner | undefined;
+            let signer: ReplicaDatabaseExportSigner | undefined;
             const active_key = app_data.result.active_key;
             const secret_key = await nostr_keys.read(active_key);
             if (!("err" in secret_key)) {
@@ -102,7 +102,7 @@
                         event: {
                             kind: 1,
                             created_at: Math.floor(Date.now() / 1000),
-                            tags: [["t", "radroots:tangle-db-export"]],
+                            tags: [["t", "radroots:replica-db-export"]],
                             content: payload,
                         },
                     });

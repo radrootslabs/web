@@ -39,7 +39,7 @@
         const relay_urls = nostr_relays.results.map(({ url }) => url);
         nostr_relays_clear(nostr_context);
         if (relay_urls.length) nostr_relays_open(nostr_context, relay_urls);
-        if (relay_urls.length) console.log(`[tangle] nostr relays opened`);
+        if (relay_urls.length) console.log(`[replica] nostr relays opened`);
         nostr_login_nip01(nostr_key.secret_key);
         //nostr_ndk_configured.set(true);
     };

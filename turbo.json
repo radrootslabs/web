@@ -42,7 +42,7 @@
         "@radroots/locales#build",
         "@radroots/nfc#build",
         "@radroots/nostr#build",
-        "@radroots/tangle-db-schema-bindings#build",
+        "@radroots/replica-db-schema-bindings#build",
         "@radroots/themes#build",
         "@radroots/types-bindings#build",
         "@radroots/utils#build"
@@ -63,7 +63,7 @@
         "@radroots/events-bindings#build",
         "@radroots/geo#build",
         "@radroots/locales#build",
-        "@radroots/tangle-db-schema-bindings#build",
+        "@radroots/replica-db-schema-bindings#build",
         "@radroots/themes#build",
         "@radroots/utils#build"
       ]
@@ -73,9 +73,9 @@
         "@radroots/geo#build",
         "@radroots/http#build",
         "@radroots/nostr#build",
-        "@radroots/tangle-db-schema-bindings#build",
-        "@radroots/tangle-db-wasm#build",
-        "@radroots/tangle-events-wasm#build",
+        "@radroots/replica-db-schema-bindings#build",
+        "@radroots/replica-db-wasm#build",
+        "@radroots/replica-sync-wasm#build",
         "@radroots/types-bindings#build",
         "@radroots/utils#build",
         "@radroots/tsconfig#build"
@@ -83,7 +83,7 @@
     },
     "@radroots/geo#build": {
       "dependsOn": [
-        "@radroots/tangle-db-schema-bindings#build",
+        "@radroots/replica-db-schema-bindings#build",
         "@radroots/utils#build",
         "@radroots/tsconfig#build"
       ]
@@ -126,19 +126,12 @@
         "@radroots/events-bindings#build",
         "@radroots/trade-bindings#build",
         "@radroots/utils#build",
-        "@welshman/net#build",
-        "@welshman/signer#build",
-        "@welshman/util#build",
         "@radroots/tsconfig#build"
       ]
     },
     "@radroots/apps-nostr#build": {
       "dependsOn": [
         "@radroots/nostr#build",
-        "@welshman/app#build",
-        "@welshman/net#build",
-        "@welshman/signer#build",
-        "@welshman/store#build",
         "@radroots/tsconfig#build"
       ]
     },
@@ -171,13 +164,13 @@
         "@radroots/tsconfig#build"
       ]
     },
-    "@radroots/tangle-db-schema-bindings#build": {
+    "@radroots/replica-db-schema-bindings#build": {
       "dependsOn": [
         "@radroots/types-bindings#build",
         "@radroots/tsconfig#build"
       ]
     },
-    "@radroots/tangle-db-wasm#build": {
+    "@radroots/replica-db-wasm#build": {
       "dependsOn": []
     },
     "@radroots/trade-bindings#build": {
@@ -201,7 +194,7 @@
     "@radroots/tsconfig#build": {
       "dependsOn": []
     },
-    "@radroots/tangle-events-wasm#build": {
+    "@radroots/replica-sync-wasm#build": {
       "dependsOn": []
     }
   }

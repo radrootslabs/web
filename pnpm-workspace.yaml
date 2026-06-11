@@ -1,6 +1,7 @@
 packages:
   - 'app'
   - 'lib/*'
-  - '../crates/*/bindings/ts'
-  - '../crates/*/pkg'
-  - '../welshman/packages/*'
+  - '../../../../domains/radroots/lib/crates/events_codec_wasm/pkg'
+  - '../../../../domains/radroots/lib/crates/replica_db_wasm/pkg'
+  - '../../../../domains/radroots/lib/crates/replica_sync_wasm/pkg'
+  - '../../../../domains/radroots/sdk/packages/*'
