@@ -30,12 +30,12 @@ const SQL_WASM_ENV = normalize_env_path(_env.SQL_WASM_URL);
 const SQL_WASM_URL = SQL_WASM_ENV
     ? ensure_env_wasm_path(
         SQL_WASM_ENV,
-        "VITE_PUBLIC_SQL_WASM_URL",
+        "RADROOTS_WEB_SQL_WASM_URL",
     )
     : DEFAULT_SQL_WASM_PATH;
 const GEOCODER_DB_ENV = normalize_env_path(_env.GEOCODER_DB_URL);
 const GEOCODER_DB_URL = GEOCODER_DB_ENV
-    ? ensure_env_asset_path(GEOCODER_DB_ENV, "VITE_PUBLIC_GEOCODER_DB_URL")
+    ? ensure_env_asset_path(GEOCODER_DB_ENV, "RADROOTS_WEB_GEOCODER_DB_URL")
     : DEFAULT_GEOCODER_DATABASE_PATH;
 const ASSET_URLS = [...new Set([SQL_WASM_URL, GEOCODER_DB_URL])];
 const PRECACHE_URLS = [...new Set([...build, ...files, ...prerendered, APP_SHELL_URL])].filter(

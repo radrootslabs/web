@@ -1,6 +1,9 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "RADROOTS_WEB_*"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
@@ -29,7 +32,7 @@
       "cache": false,
       "persistent": true
     },
-    "app#build": {
+    "radroots-web-app#build": {
       "dependsOn": [
         "@radroots/apps-lib#build",
         "@radroots/apps-lib-pwa#build",

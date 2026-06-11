@@ -154,17 +154,19 @@
     let farm_map_geop: GeolocationPoint | undefined = $state(undefined);
     let farm_map_geoc: GeocoderReverseResult | undefined = $state(undefined);
 
-    const farm_geop_lat = $derived(
-        geop_is_valid(farm_map_geop)
-            ? geol_lat_fmt(farm_map_geop.lat, `dms`, $locale, 3)
-            : ``,
-    );
+    const farm_geop_lat = $derived.by(() => {
+        const farm_map_geop_value = farm_map_geop;
+        return geop_is_valid(farm_map_geop_value)
+            ? geol_lat_fmt(farm_map_geop_value.lat, `dms`, $locale, 3)
+            : ``;
+    });
 
-    const farm_geop_lng = $derived(
-        geop_is_valid(farm_map_geop)
-            ? geol_lng_fmt(farm_map_geop.lng, `dms`, $locale, 3)
-            : ``,
-    );
+    const farm_geop_lng = $derived.by(() => {
+        const farm_map_geop_value = farm_map_geop;
+        return geop_is_valid(farm_map_geop_value)
+            ? geol_lng_fmt(farm_map_geop_value.lng, `dms`, $locale, 3)
+            : ``;
+    });
 
     let is_eula_scrolled = $state(false);
     let is_loading_s = $state(false);

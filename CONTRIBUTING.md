@@ -65,27 +65,23 @@ git submodule foreach 'git checkout $(git config -f $toplevel/.gitmodules submod
 
 Install the application dependencies:
 ```bash
-yarn
+pnpm install
 ```
 
 
 Configure local environment variables:
 ```bash
-echo 'VITE_PUBLIC_DEFAULT_RELAYS=ws://localhost:8080,ws://localhost:8081
-VITE_PUBLIC_RADROOTS_RELAY=ws://localhost:8082
-VITE_PUBLIC_RADROOTS_API=https://radroots.org
-VITE_PUBLIC_KEYVAL_NAME=rad-roots-pwa-dev-v1
-VITE_PUBLIC_NOSTR_CLIENT=»-`-,- rad roots' > app/.env.development
+(cd ../../../.. && uv run --project . --package radroots_scripts radroots-scripts local env generate)
 ```
 
 Build the application:
 ```bash
-yarn build
+pnpm build:app
 ```
 
 Run the application in development mode:
 ```bash
-yarn dev
+(cd ../../../.. && uv run --project . --package radroots_scripts radroots-scripts local web app run)
 ```
 
 ## Contributing

@@ -1,6 +1,7 @@
 import { datastore, db, nostr_keys } from "$lib/utils/app";
 import { ls } from "$lib/utils/i18n";
 import { get_store, handle_err, parse_file_json } from "@radroots/apps-lib";
+import type { I18nPayloadValue } from "@radroots/apps-lib";
 import type { ImportableAppState } from "@radroots/apps-lib-pwa/types/app";
 import type { IError } from "@radroots/types-bindings";
 import type { IdbClientConfig } from "@radroots/utils";
@@ -18,6 +19,9 @@ export type AppImportStateResult = {
 
 const is_record = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null && !Array.isArray(value);
+
+const i18n_payload_value = (value: unknown): I18nPayloadValue =>
+    typeof value === "string" || typeof value === "number" || typeof value === "boolean" ? value : "unknown";
 
 const assert_config_match = (
     current: IdbClientConfig,
@@ -48,7 +52,7 @@ export const validate_import_state = async (state: unknown): Promise<ImportableA
     if (state.backup_version !== app_cfg.backup.version) {
         throw_err(
             ls_val(`error.configuration.import.unsupported_backup_version`, {
-                backup_version: state.backup_version,
+                backup_version: i18n_payload_value(state.backup_version),
                 expected_version: app_cfg.backup.version,
             })
         );
