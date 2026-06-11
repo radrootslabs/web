@@ -177,7 +177,7 @@ export const geoc_init = async (): Promise<void> => {
         geoc_init_promise = (async () => {
             const geoc_ready = await geoc.connect({
                 wasm_path: SQL_WASM_URL,
-                database_path: GEOCODER_DB_URL || "/assets/geonames.db"
+                database_path: GEOCODER_DB_URL
             });
             if (geoc_ready !== true) throw new Error(geoc_ready.err);
         })();
