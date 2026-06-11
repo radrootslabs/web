@@ -424,49 +424,49 @@ importers:
     dependencies:
       '@radroots/apps-lib':
         specifier: workspace:*
-        version: link:../packages/apps-lib
+        version: link:../lib/apps-lib
       '@radroots/apps-lib-pwa':
         specifier: workspace:*
-        version: link:../packages/apps-lib-pwa
+        version: link:../lib/apps-lib-pwa
       '@radroots/apps-nostr':
         specifier: workspace:*
-        version: link:../packages/apps-nostr
+        version: link:../lib/apps-nostr
       '@radroots/client':
         specifier: workspace:*
-        version: link:../packages/client
+        version: link:../lib/client
       '@radroots/events-bindings':
         specifier: workspace:*
         version: link:../../crates/events/bindings/ts
       '@radroots/geo':
         specifier: workspace:*
-        version: link:../packages/geo
+        version: link:../lib/geo
       '@radroots/geocoder':
         specifier: workspace:*
-        version: link:../packages/geocoder
+        version: link:../lib/geocoder
       '@radroots/http':
         specifier: workspace:*
-        version: link:../packages/http
+        version: link:../lib/http
       '@radroots/locales':
         specifier: workspace:*
-        version: link:../packages/locales
+        version: link:../lib/locales
       '@radroots/nfc':
         specifier: workspace:*
-        version: link:../packages/nfc
+        version: link:../lib/nfc
       '@radroots/nostr':
         specifier: workspace:*
-        version: link:../packages/nostr
+        version: link:../lib/nostr
       '@radroots/tangle-db-schema-bindings':
         specifier: workspace:*
         version: link:../../crates/tangle-db-schema/bindings/ts
       '@radroots/themes':
         specifier: workspace:*
-        version: link:../packages/themes
+        version: link:../lib/themes
       '@radroots/types-bindings':
         specifier: workspace:*
         version: link:../../crates/types/bindings/ts
       '@radroots/utils':
         specifier: workspace:*
-        version: link:../packages/utils
+        version: link:../lib/utils
       chart.js:
         specifier: ^4.4.5
         version: 4.5.1
@@ -526,7 +526,7 @@ importers:
         specifier: 7.0.6
         version: 7.0.6(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)
 
-  packages/apps-lib:
+  lib/apps-lib:
     dependencies:
       '@radroots/geo':
         specifier: workspace:*
@@ -596,7 +596,7 @@ importers:
         specifier: 7.0.6
         version: 7.0.6(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)
 
-  packages/apps-lib-market:
+  lib/apps-lib-market:
     dependencies:
       '@radroots/apps-lib':
         specifier: workspace:*
@@ -651,7 +651,7 @@ importers:
         specifier: 7.0.6
         version: 7.0.6(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)
 
-  packages/apps-lib-pwa:
+  lib/apps-lib-pwa:
     dependencies:
       '@radroots/apps-lib':
         specifier: workspace:*
@@ -733,7 +733,7 @@ importers:
         specifier: 7.0.6
         version: 7.0.6(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)
 
-  packages/apps-nostr:
+  lib/apps-nostr:
     dependencies:
       '@radroots/nostr':
         specifier: workspace:*
@@ -767,7 +767,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/ble:
+  lib/ble:
     dependencies:
       '@radroots/utils':
         specifier: workspace:*
@@ -783,7 +783,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/client:
+  lib/client:
     dependencies:
       '@radroots/geo':
         specifier: workspace:*
@@ -835,7 +835,7 @@ importers:
         specifier: ^5.3.3
         version: 5.8.3
 
-  packages/geo:
+  lib/geo:
     dependencies:
       '@radroots/tangle-db-schema-bindings':
         specifier: workspace:*
@@ -866,7 +866,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/geocoder:
+  lib/geocoder:
     dependencies:
       '@radroots/geo':
         specifier: workspace:*
@@ -900,7 +900,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/http:
+  lib/http:
     dependencies:
       '@radroots/types-bindings':
         specifier: workspace:*
@@ -922,7 +922,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/locales:
+  lib/locales:
     devDependencies:
       '@radroots/tsconfig':
         specifier: workspace:*
@@ -937,7 +937,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/nfc:
+  lib/nfc:
     dependencies:
       '@radroots/utils':
         specifier: workspace:*
@@ -953,7 +953,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/nostr:
+  lib/nostr:
     dependencies:
       '@noble/curves':
         specifier: ^1.6.0
@@ -1008,7 +1008,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/themes:
+  lib/themes:
     dependencies:
       daisyui:
         specifier: ^5.0.46
@@ -1042,9 +1042,9 @@ importers:
         specifier: ^4.2.1
         version: 4.2.1
 
-  packages/tsconfig: {}
+  lib/tsconfig: {}
 
-  packages/utils:
+  lib/utils:
     dependencies:
       '@noble/curves':
         specifier: ^1.6.0
